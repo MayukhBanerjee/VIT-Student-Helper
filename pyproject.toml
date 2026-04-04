@@ -1,0 +1,17 @@
+[project]
+name = "vit-students-helper"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "flask>=3.1.3",
+    "langchain>=1.2.15",
+    "langchain-community>=0.4.1",
+    "langchain-google-genai>=4.2.1",
+    "python-dotenv>=1.2.2",
+    "qdrant-client>=1.17.1",
+    "requests>=2.33.1",
+    "rich>=14.3.3",
+    "tiktoken>=0.12.0",
+]

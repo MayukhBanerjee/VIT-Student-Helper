@@ -1,0 +1,10 @@
+langchain==0.2.14
+langchain-community==0.2.12
+langchain-core==0.2.30
+langchain-google-genai==1.0.10
+qdrant-client==1.9.1
+flask==3.0.3
+python-dotenv==1.0.1
+tiktoken
+rich
+requests
