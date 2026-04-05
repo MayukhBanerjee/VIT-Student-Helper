@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VIT Assistant</title>
+
+<!-- Markdown parser -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+body {
+    background: #0f172a;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 95%;
+    max-width: 600px;
+    height: 90vh;
+    background: #111827;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    overflow: hidden;
+}
+
+.header {
+    padding: 20px;
+    background: #1f2937;
+    color: #e5e7eb;
+    font-weight: 600;
+    text-align: center;
+}
+
+.chat {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    line-height: 1.6;
+    font-size: 14px;
+    max-width: 80%;
+}
+
+.user {
+    background: #4f46e5;
+    color: white;
+    margin-left: auto;
+}
+
+.bot {
+    background: #1f2937;
+    color: #e5e7eb;
+}
+
+.input-box {
+    display: flex;
+    padding: 15px;
+    background: #1f2937;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background: #374151;
+    color: white;
+}
+
+button {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    background: #6366f1;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4f46e5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="header">VIT Campus Assistant</div>
+
+    <div class="chat" id="chat"></div>
+
+    <div class="input-box">
+        <input id="q" placeholder="Ask anything about VIT..." />
+        <button onclick="ask()">Send</button>
+    </div>
+</div>
+
+<script>
+async function ask() {
+    const input = document.getElementById("q");
+    const chat = document.getElementById("chat");
+    const query = input.value;
+
+    if (!query) return;
+
+    // User message
+    chat.innerHTML += `<div class="message user">${query}</div>`;
+    input.value = "";
+
+    // Scroll down
+    chat.scrollTop = chat.scrollHeight;
+
+    try {
+        const res = await fetch("http://127.0.0.1:8000/ask", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({query})
+        });
+
+        const data = await res.json();
+
+        // 🔥 Markdown rendering here
+        const formatted = marked.parse(data.answer);
+
+        chat.innerHTML += `<div class="message bot">${formatted}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+
+    } catch (err) {
+        chat.innerHTML += `<div class="message bot">Error connecting to server</div>`;
+    }
+}
+</script>
+
+</body>
+</html>
