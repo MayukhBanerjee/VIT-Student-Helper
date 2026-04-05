@@ -1,0 +1,12 @@
+Layer 1: Knowledge Base
+
+There is 1 , 25 pages long pdf. 
+
+1)It's to first be loaded into the model as a PDF
+2)Then broken down into chunks using splitters
+3)Embeddings
+4)Save into Vector DB
+
+
+
+

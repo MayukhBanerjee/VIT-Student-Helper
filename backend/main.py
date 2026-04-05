@@ -97,5 +97,5 @@ rag_chain = create_retrieval_chain(retriever, combined_chain)
 
 
 #example query
-response = rag_chain.invoke({"input":"How is life in VIT in 5 sentences?"})
-print(response["answer"])
+""" response = rag_chain.invoke({"input":"How is life in VIT in 5 sentences?"})
+print(response["answer"]) """
